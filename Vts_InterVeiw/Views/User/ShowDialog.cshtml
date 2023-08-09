@@ -1,0 +1,28 @@
+﻿<div class="alert alert-danger" role="alert">
+    <strong>Attention:</strong> Do you want to log out?
+</div>
+
+<div class="button-container">
+    <a href="@Url.Action("Logout", "User")" class="btn btn-outline-danger">Log Out</a>
+    <button class="btn btn-outline-secondary" onclick="goBack()">Stay</button>
+</div>
+
+<style>
+    .alert {
+        margin-bottom: 20px;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+</style>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+

@@ -1,0 +1,30 @@
+﻿@model Vts.DAL.Order
+
+<div class="row">
+    <form>
+        <div class="form-group">
+            <label asp-for="@Model.User.FirstName" ></label>
+            <input asp-for="@Model.User.FirstName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.User.Email"></label>
+            <input asp-for="@Model.User.Email" class="form-control" />
+
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.User.PhoneNumber"></label>
+            <input asp-for="@Model.User.PhoneNumber" class="form-control" />
+
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.OrderDetails.Select(s => s.Items.Price * s.Quantity ).Sum()"></label>
+            <input asp-for="@Model.OrderDetails.Select(s => s.Items.Price * s.Quantity ).Sum()" class="form-control" />
+
+        </div>
+
+        <div class="form-group align-content-center">
+            <input type="submit" value="click to pay" class="btn btn-success" />
+        </div>
+    </form>
+
+</div> 

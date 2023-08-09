@@ -1,0 +1,60 @@
+﻿@model Vts.DAL.Item
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1 class="text-center">Details for @Model.Name</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+ @*               <div class="form-group text-center">
+                    <img class="border-info rounded-circle" style="max-width: 150px" id="ProfilePicturePreview" />
+                </div>*@
+                <div class="form-group">
+                    <label asp-for="ImageFile" class="control-label"></label>
+                    <img src="@("~/Image/" + Model.ImageURL)" asp-append-version="true" style="height:188px" class="card-img-top" alt="@Model.Name" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" readonly />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" readonly />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" readonly />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Category" class="control-label"></label>
+                    <input asp-for="Category.Name" class="form-control" readonly />
+                </div>
+                <br />
+                <div class="form-group">
+                    @if (User.Claims.FirstOrDefault(c => c.Type == "Role")?.Value == "Admin")
+                    {
+                    <a class="btn btn-outline-success float-right" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                    }
+                    <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('ProfilePicturePreview');
+            output.src = $("#ProfilePictureURL").val();
+        })
+    </script>
+}

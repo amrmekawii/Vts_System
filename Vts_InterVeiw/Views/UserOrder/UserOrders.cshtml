@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Vts.DAL.Order>
+@{
+    ViewData["Title"] = "Order";
+}
+
+<div style="width:100%" class="mt-2">
+    <a href="/Identity/Account/Manage" class="btn btn-primary my-2">Back</a>
+
+    <h4>My Orders</h4>
+
+    @if (Model != null && Model.Count() > 0)
+    {
+        <table class="table table-striped">
+            <tr>
+                <th>OrderDate</th>
+                <th>OrderStatus</th>
+            </tr>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.CreateDate.ToString("dd-MM-yyyy")</td>
+                    <td>@order.orderStatus.StatusName</td>
+                </tr>
+                @if (order.OrderDetails != null && order.OrderDetails.Count > 0)
+                {
+                    <tr>
+                        <td>
+                            <table class="table table-striped">
+                                <tr>
+                                    <td>
+                                        Total:
+                                    </td>
+                                    <td>
+                                        @(order.OrderDetails.Select(item => item.Items.Price * item.Quantity).Sum())
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Image</th>
+                                    <th>Category</th>
+                                    <th>Unit Price(INR)</th>
+                                    <th>Total Price</th>
+                                </tr>
+                                @foreach (var item in order.OrderDetails)
+                                {
+                                    <tr>
+                                        <td>@item.Items.Name</td>
+                                        <td>
+                                            @if (string.IsNullOrEmpty(item.Items.ImageURL))
+                                            {
+                                                <img src="/Image/PlaceHolder.png" style="width:80px;height:100px" />
+                                            }
+                                            else
+                                            {
+                                                <img src="@("~/Image/" + item.Items.ImageURL)" asp-append-version="true" style="width:80px;height:100px" class="card-img-top" alt="@item.Items.Name" />
+                                            }
+                                        </td>
+                                        <td>@item.Items.Category.Name</td>
+                                        <td>@item.Items.Price X @item.Quantity</td>
+                                        <td>@(item.Items.Price * item.Quantity) </td>
+
+                                    </tr>
+                                }
+                            </table>
+                        </td>
+                    </tr>
+
+
+                }
+                
+            }
+        </table>
+        <div class="my-2">
+            <a class="btn btn-primary" href="/UserOrder/GetUserOrders">Checkout</a>
+        </div>
+
+    }
+    else
+    {
+        <h5>No orders</h5>
+    }
+</div>
